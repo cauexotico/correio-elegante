@@ -14,7 +14,8 @@ mercadopago.configure({
 });
 
 async function updatePaymentStatus(req: NextApiRequest, res: NextApiResponse<Object>) {
-    const { messageId } = req.query;
+    const messageId = req.query.messageId as string | undefined;
+
     const payment = await getPayment(req.body.data.id);
 
     if (payment.status == 'approved') {
@@ -42,7 +43,7 @@ async function getPayment(paymentId: string) {
 
 async function sendMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
     const client = twillio(accountSid, authToken);
-    const { messageId } = req.query
+    const messageId = req.query.messageId as string | undefined;
 
     const message = await prisma.message.findUnique({
         where: { id: messageId },

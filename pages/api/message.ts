@@ -56,11 +56,11 @@ async function createPreference(idMessage: String) {
     };
 
     await mercadopago.preferences.create(preference)
-        .then(function (response) {
+        .then(function (response: any) {
             console.log(response.body.id);
             console.log(response.body.init_point);
             data = response.body.init_point;
-        }).catch(function (error) {
+        }).catch(function (error: any) {
             data = error;
         });
 
