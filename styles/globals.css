@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div {
+    height: 100%;
+    @apply bg-slate-100 
+}
+
+.button {
+    @apply bg-rose-600 text-white px-4 py-2 hover:bg-rose-700 transition rounded-lg
+}
+
+.form-group {
+    @apply block mb-4
+}
+
+.form-group span{
+    @apply font-bold block mb-2 text-gray-500
+}
+
+.form-group input, 
+.form-group select,
+.form-group textarea {
+    @apply w-full p-1 resize-none rounded-sm outline outline-gray-200 outline-2 focus:outline-rose-600
+}

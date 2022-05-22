@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum PaymentStatus {
+  pending
+  approved
+  authorized
+  in_process
+  in_mediation
+  rejected
+  cancelled
+  refunded
+  charged_back
+}
+
+enum Status {
+  sent
+  draft
+}
+
+model Message {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  to             String
+  message        String
+  status         Status        @default(draft)
+  payment_status PaymentStatus @default(pending)
+  created_at     DateTime      @default(now())
+  updated_at     DateTime      @default(now())
+
+  @@map("messages")
+}
