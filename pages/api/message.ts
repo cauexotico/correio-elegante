@@ -9,9 +9,6 @@ mercadopago.configure({
 });
 
 async function createMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
-    if (!req.body.to || !req.body.message) {
-        return res.status(500).json({ error: 'validation error' })
-    }
     const message = await prisma.message.create({
         data: {
             to: req.body.to,
@@ -20,12 +17,18 @@ async function createMessage(req: NextApiRequest, res: NextApiResponse<Object>) 
     });
 
     if (!message.id) {
-        return res.status(500).json({ error: 'something gone wrong' })
+        return res.status(500).json({ error: 'something gone wrong while saving in database' })
     }
 
-    const preference = await createPreference(message.id);
+    const payment_url = await createPreference(message.id);
 
-    return res.status(200).json({ message, payment_url: preference })
+    return res.status(200).json({
+        error: false,
+        data: {
+            message,
+            payment_url: payment_url
+        }
+    })
 };
 
 async function createPreference(idMessage: String) {
@@ -68,9 +71,29 @@ async function createPreference(idMessage: String) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Object>) {
-    if (req.method === 'POST') {
-        return createMessage(req, res);
+    if (req.method !== 'POST') {
+        return res.status(500).json({ error: 'only accepts POST method' })
+    }
+    
+    if (!req.body.to || !req.body.message) {
+        return res.status(500).json({ error: 'validation error' })
     }
 
-    return res.status(500).json({ error: 'only accepts POST method' })
+    if (req.body.to.lenght != 12) {
+        return res.status(500).json({
+            error: true,
+            field: 'to',
+            message: 'Formato incorreto'
+        })
+    }
+
+    if (req.body.message.lenght > 256) {
+        return res.status(500).json({
+            error: true,
+            field: 'message',
+            message: 'Limite de caracteres excedido'
+        })
+    }
+
+    return createMessage(req, res);
 }
