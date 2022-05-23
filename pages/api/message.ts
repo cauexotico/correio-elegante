@@ -74,23 +74,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (req.method !== 'POST') {
         return res.status(500).json({ error: 'only accepts POST method' })
     }
-    
-    if (!req.body.to || !req.body.message) {
-        return res.status(500).json({ error: 'validation error' })
-    }
 
-    if (req.body.to.lenght != 12) {
+    if (!req.body.to || !req.body.message) {
         return res.status(500).json({
             error: true,
-            field: 'to',
+            fields: [
+                'to', 'message'
+            ],
+            message: 'Campo em branco'
+        })
+    }
+
+    if (req.body.to.length != 12) {
+        return res.status(500).json({
+            error: true,
+            fields: ['to'],
             message: 'Formato incorreto'
         })
     }
 
-    if (req.body.message.lenght > 256) {
+    if (req.body.message.length > 256) {
         return res.status(500).json({
             error: true,
-            field: 'message',
+            field: ['message'],
             message: 'Limite de caracteres excedido'
         })
     }

@@ -26,7 +26,11 @@ const Home: NextPage = () => {
                 },
                 body: JSON.stringify({ to, message })
               }).then(response => response.json())
-                .then(json => window.open(json.payment_url, '_blank')?.focus())
+                .then(json => {
+                  if (json.error == false) {
+                    window.open(json.data.payment_url, '_blank')?.focus()
+                  } 
+                })
                 .catch(err => console.log(err))
             }}>
               <label className="form-group">
