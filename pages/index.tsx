@@ -51,8 +51,9 @@ const Home: NextPage = () => {
             <div className='mt-4'>
               <p className='text-xl font-bold'>Pré visualização da mensagem</p>
               <p className='bg-white w-full md:w-10/12 p-4 rounded border border-slate-300 shadow-sm mt-4'>
-                Você é uma pessoa muito especial! 💕💕 <br />
-                Alguém enviou um <span className='font-bold'>correio elegante</span> 😍😍 para você com a seguinte mensagem:<br />
+                Como é bom ser lembrado por alguém especial! 😍 <br />
+                Você acabou de receber um Correio Elegante. 💘 <br />
+                Confira sua mensagem 👇 <br />
                 <br />
                 <span className='italic'>{message ? message : 'escreva sua mensagem'}</span><br />
                 <br />
