@@ -52,7 +52,8 @@ async function sendMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
     await client.messages
         .create({
             from: `whatsapp:${myNumber}`,
-            body: `Você é uma pessoa muito especial! 💕💕 \nAlguém enviou um *correio elegante* para você 😍😍 com a seguinte mensagem:\n\n _${message?.message}_ \n\nAcesse https://correio.khaue.com.br e envie também para alguém que você goste!`,
+            // body: `Você é uma pessoa muito especial! 💕💕 \nAlguém enviou um *correio elegante* para você 😍😍 com a seguinte mensagem:\n\n _${message?.message}_ \n\nAcesse https://correio.khaue.com.br e envie também para alguém que você goste!`,
+            body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nConfira sua mensagem 👇 \n _${message?.message}_`,
             to: `whatsapp:+${message?.to}`
         })
         .then((message: String) => res.json(message), (err: Error) => res.json(err));
@@ -61,9 +62,13 @@ async function sendMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Object>) {
-    if (req.method === 'POST' && req.body.type === 'payment') {
-        return updatePaymentStatus(req, res);
+    if (req.method !== 'POST') {
+        return res.status(500).json({ error: 'only accepts POST method' })
     }
 
-    return res.status(500).json({ error: 'only accepts POST method' })
+    if (!req.body.type || req.body.type !== 'payment') {
+        return res.status(500).json({ error: 'missing type or isnt payment' })
+    }
+
+    return updatePaymentStatus(req, res);
 }
