@@ -20,6 +20,8 @@ function Layout({ children }) {
                 <meta property="og:image" content="https://correio.khaue.com.br" />
                 <meta property="og:site_name" content="Correio Elegante Online" />
                 <meta property="og:locale" content="pt_BR" />
+
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6296770603213727" crossOrigin="anonymous"></script>
             </Head>
 
             {children}
