@@ -34,7 +34,7 @@ model Message {
   status         Status        @default(draft)
   payment_status PaymentStatus @default(pending)
   created_at     DateTime      @default(now())
-  updated_at     DateTime      @default(now())
+  updated_at     DateTime      @updatedAt
 
   @@map("messages")
 }

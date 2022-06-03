@@ -51,9 +51,9 @@ async function createPreference(idMessage: String) {
         },
         external_reference: idMessage,
         // auto_return: 'approved',
-        // back_urls: {
-        //     success: '',
-        // }
+        back_urls: {
+            success: `https://${process.env.APP_URL}/success/${idMessage}`,
+        },
         notification_url: `https://${process.env.APP_URL}/api/payments/${idMessage}`,
         statement_descriptor: 'CORREIOELEGANTE'
     };

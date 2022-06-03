@@ -11,7 +11,7 @@ function Layout({ children }) {
                 <meta name="keywords" content="correio elegante, online, whatsapp, anonimo, amor, carinho, festa junina, dia dos namorados" />
                 <meta name="reply-to" content="khaue.po@hotmail.com" />
                 <meta name="robots" content="index,follow" />
-                <meta http-equiv="content-language" content="pt-br" />
+                <meta httpEquiv="content-language" content="pt-br" />
                 <meta property="og:locale" content="pt_BR" />
                 <meta property="og:title" content="Correio Elegante Online" />
                 <meta property="og:type" content="website" />

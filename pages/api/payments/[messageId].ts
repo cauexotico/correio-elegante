@@ -66,9 +66,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         return res.status(500).json({ error: 'only accepts POST method' })
     }
 
-    if (!req.body.type || req.body.type !== 'payment') {
-        return res.status(500).json({ error: 'missing type or isnt payment' })
+    if (!req.body.type || req.body.type !== 'payment' || req.query.messageId == undefined) {
+        return res.status(500).json({ error: 'missing type, messageId or isnt payment' })
     }
+
+    console.log(req.body);
 
     return updatePaymentStatus(req, res);
 }
