@@ -35,7 +35,7 @@ const Home: NextPage = () => {
             }}>
               <label className="form-group">
                 <span>Whatsapp destinatário</span>
-                <input maxLength={11} onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='554712341234' />
+                <input maxLength={12} onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='554712341234' />
               </label>
               <label className="form-group">
                 <span>Mensagem</span>
