@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Image from 'next/image';
 import { useState } from 'react'
 
 const Home: NextPage = () => {
@@ -7,16 +8,17 @@ const Home: NextPage = () => {
   const [message, setMessage] = useState('');
 
   return (
-    <>
-      <div className='flex justify-center h-full'>
-        <div className='w-full grid grid-cols-12'>
-          <div className='col-span-12 md:col-span-5 bg-rose-600 text-rose-100 text-center p-4'>
-            <h1 className='text-4xl font-bold'>Correio Elegante</h1>
-            <p className='font-xl mt-8 w-8/12 m-auto'>Por apenas <strong>R$4,99</strong> envie uma mensagem anônimamente para o seu amor!</p>
-            <p className='font-xl mt-4 w-8/12 m-auto'>Basta inserir o número do whatsapp dele(a) e escrever a sua própria mensagem.</p>
-          </div>
-          <div className='col-span-12 md:col-span-5 p-4'>
-            <form onSubmit={(e) => {
+    <div className='max-w-screen-xl px-4 m-auto'>
+      <header className='py-8 flex'>
+        <Image src='/lovebox.png' alt='Lovebox' width={211} height={48} />
+      </header>
+      <main>
+        <article className='grid grid-cols-1 md:grid-cols-2 gap-12'>
+          <section className='flex gap-6 flex-col'>
+            <h2 className='text-2xl md:text-4xl text-white font-big'>Por apenas R$4,99 envie uma mensagem anonimamente para o seu amor!</h2>
+            <h3 className='text-sm md:text-base text-white'>Basta inserir o número do whatsapp dele(a) e escrever a sua própria mensagem.</h3>
+
+            <form className='flex gap-6 flex-col' onSubmit={(e) => {
               e.preventDefault();
 
               fetch('/api/message', {
@@ -29,41 +31,42 @@ const Home: NextPage = () => {
                 .then(json => {
                   if (json.error == false) {
                     window.open(json.data.payment_url, '_blank')?.focus()
-                  } 
+                  }
                 })
                 .catch(err => console.log(err))
             }}>
-              <label className="form-group">
-                <span>Whatsapp destinatário</span>
-                <input maxLength={12} onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='554712341234' />
-              </label>
-              <label className="form-group">
-                <span>Mensagem</span>
-                <textarea rows={3} maxLength={charsLimit} onChange={(e) => setMessage(e.target.value)} name="message"></textarea>
-                <div className='flex justify-between'>
-                  <small className='text-slate-600'>Essa é uma mensagem anônima!</small>
-                  <small className='text-slate-600 font-bold'>{message.length}/{charsLimit}</small>
-                </div>
-              </label>
-              <button className='button'>Fazer pagamento e enviar</button>
+              <input maxLength={12} onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' />
+              <div className='form-group'>
+                <textarea rows={5} maxLength={charsLimit} onChange={(e) => setMessage(e.target.value)} name="message" placeholder='Escreva aqui sua declaração...'></textarea>
+                <small>Tá ligado que essa mensagem é anônima, né!?</small>
+                <small className='text-right'>{message.length}/{charsLimit}</small>
+              </div>
+              <button className='button'>Faça o pagamento e envie sua mensagem</button>
             </form>
-
-            <div className='mt-4'>
-              <p className='text-xl font-bold'>Pré visualização da mensagem</p>
-              <p className='bg-white w-full md:w-10/12 p-4 rounded border border-slate-300 shadow-sm mt-4'>
+          </section>
+          <section className='flex gap-4 flex-col'>
+            <p className='text-3xl text-white font-big'>Veja como a mensagem ficou:</p>
+            <div className='bg-white rounded-2xl p-4'>
+              <p className='font-preview'>
                 Como é bom ser lembrado por alguém especial! 😍 <br />
                 Você acabou de receber um Correio Elegante. 💘 <br />
                 Confira sua mensagem 👇 <br />
                 <br />
                 <span className='italic'>{message ? message : 'escreva sua mensagem'}</span><br />
                 <br />
-                Acesse https://correio.khaue.com.br e envie também para alguém que você goste!
+                Acesse https://lovebox.khaue.com.br e envie também para alguém que você goste!
               </p>
             </div>
-          </div>
-        </div>
-      </div>
-    </>
+            <div className='text-center'>
+              <Image src='/lovebox-envelope.png' alt='Lovebox' width={282} height={304} />
+            </div>
+          </section>
+        </article>
+      </main>
+      <footer className='w-full text-center p-4'>
+        <span className='text-white bold'>Copyright © LoveBox 2022.</span>
+      </footer>
+    </div>
   )
 }
 

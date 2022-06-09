@@ -4,7 +4,13 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'big': ['"Fredoka One"', 'cursive'],
+        'preview': ['"Montserrat"', 'sans-serif'],
+        'content': ['"Poppins One"', 'sans-serif']
+      }
+    }
   },
   plugins: [],
 }

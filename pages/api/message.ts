@@ -36,8 +36,8 @@ async function createPreference(idMessage: String) {
 
     let preference = {
         items: [{
-            title: 'Correio Elegante Online',
-            description: 'Um agrado para o seu amor',
+            title: 'LOVEBOX - Mensagem',
+            description: 'Um agrado eletrônico para o seu amor',
             quantity: 1,
             unit_price: 4.99,
             currency_id: 'BRL',
@@ -55,7 +55,7 @@ async function createPreference(idMessage: String) {
             success: `https://${process.env.APP_URL}/success/${idMessage}`,
         },
         notification_url: `https://${process.env.APP_URL}/api/payments/${idMessage}`,
-        statement_descriptor: 'CORREIOELEGANTE'
+        statement_descriptor: 'LOVEBOX'
     };
 
     await mercadopago.preferences.create(preference)

@@ -2,29 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-body > div:first-child,
-div#__next,
-div#__next > div {
-    height: 100%;
-    @apply bg-slate-100 
+* {
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    @apply h-full;
+}
+
+body {
+    background: #F15177 linear-gradient(#F15177, #E61A4B) no-repeat center center fixed;
 }
 
 .button {
-    @apply bg-rose-600 text-white px-4 py-2 hover:bg-rose-700 transition rounded-lg
+    color: #E61B4C;
+    @apply text-sm font-semibold bg-white px-8 py-4 rounded-full
+}
+
+input[type='text'], textarea {
+    background-color: transparent;
+    resize: none;
+    
+    @apply w-full text-white border-b border-white
+}
+
+input[type='text']::placeholder, textarea::placeholder {
+    color: #fff;
 }
 
 .form-group {
-    @apply block mb-4
+    grid-template-columns: 2fr 1fr;
+    @apply grid text-white
 }
 
-.form-group span{
-    @apply font-bold block mb-2 text-gray-500
-}
+.form-group textarea{
+    grid-column: 1/-1;
 
-.form-group input, 
-.form-group select,
-.form-group textarea {
-    @apply w-full p-1 resize-none rounded-sm outline outline-gray-200 outline-2 focus:outline-rose-600
+    @apply mb-2
 }
