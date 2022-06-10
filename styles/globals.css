@@ -7,12 +7,18 @@
     font-family: 'Poppins', sans-serif;
 }
 
-html {
-    @apply h-full;
+div#__next {
+    min-height: 100vh;
 }
 
 body {
-    background: #F15177 linear-gradient(#F15177, #E61A4B) no-repeat center center fixed;
+    background-image: url('/background.png'), linear-gradient(#F15177, #E61A4B);
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        background-image: linear-gradient(#F15177, #E61A4B);
+    }
 }
 
 .button {
@@ -21,10 +27,9 @@ body {
 }
 
 input[type='text'], textarea {
-    background-color: transparent;
     resize: none;
     
-    @apply w-full text-white border-b border-white
+    @apply w-full text-white border-b border-white bg-transparent
 }
 
 input[type='text']::placeholder, textarea::placeholder {
@@ -32,8 +37,9 @@ input[type='text']::placeholder, textarea::placeholder {
 }
 
 .form-group {
-    grid-template-columns: 2fr 1fr;
-    @apply grid text-white
+    grid-template-columns: 1fr auto;
+
+    @apply grid text-white gap-x-4
 }
 
 .form-group textarea{
