@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image';
 import { useState } from 'react'
+import InputMask from 'react-input-mask';
 
 const Home: NextPage = () => {
   const charsLimit = 256;
@@ -9,7 +10,7 @@ const Home: NextPage = () => {
 
   return (
     <div className='max-w-screen-xl px-4 m-auto'>
-      <header className='py-8 flex'>
+      <header className='py-11 mb-8 flex'>
         {/* <Image src='/lovebox.png' alt='Lovebox' width={211} height={48} /> */}
         <svg xmlns="http://www.w3.org/2000/svg" width="210.2" height="47.458" viewBox="0 0 210.2 47.458">
           <g id="Lovebox" transform="translate(-4404.53 -460.667)">
@@ -22,7 +23,7 @@ const Home: NextPage = () => {
         <article className='grid grid-cols-1 md:grid-cols-2 gap-12'>
           <section className='flex gap-6 flex-col'>
             <h2 className='text-2xl md:text-4xl text-white font-big'>Por apenas R$2,99 envie uma mensagem anonimamente para o seu amor!</h2>
-            <h3 className='text-sm md:text-base text-white'>Basta inserir o número do whatsapp dele(a) e escrever a sua própria mensagem.</h3>
+            <h3 className='text-sm md:text-base text-white mb-6'>Basta inserir o número do whatsapp dele(a) e escrever a sua própria mensagem.</h3>
 
             <form className='flex gap-6 flex-col' onSubmit={(e) => {
               e.preventDefault();
@@ -41,7 +42,7 @@ const Home: NextPage = () => {
                 })
                 .catch(err => console.log(err))
             }}>
-              <input maxLength={12} onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' />
+              <InputMask mask="(99) \9 9999-9999" onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' autoComplete="off" />
               <div className='form-group'>
                 <textarea rows={5} maxLength={charsLimit} onChange={(e) => setMessage(e.target.value)} name="message" placeholder='Escreva aqui sua declaração...'></textarea>
                 <small>Tá ligado que essa mensagem é anônima, né!?</small>

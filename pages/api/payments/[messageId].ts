@@ -54,7 +54,7 @@ async function sendMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
             from: `whatsapp:${myNumber}`,
             // body: `Você é uma pessoa muito especial! 💕💕 \nAlguém enviou um *correio elegante* para você 😍😍 com a seguinte mensagem:\n\n _${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
             body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nConfira sua mensagem 👇 \n\n_${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
-            to: `whatsapp:+${message?.to}`
+            to: `whatsapp:+55${message?.to}`
         })
         .then((message: String) => res.json(message), (err: Error) => res.json(err));
 

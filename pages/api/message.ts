@@ -85,13 +85,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         })
     }
 
-    if (req.body.to.length != 12) {
+    if (req.body.to.length != 16) {
         return res.status(500).json({
             error: true,
             fields: ['to'],
             message: 'Formato incorreto'
         })
     }
+
+    req.body.to = req.body.to.replace(' 9 ', '').replace(/\D/g, '');
 
     if (req.body.message.length > 256) {
         return res.status(500).json({
