@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Script from 'next/script'
 
 function Layout({ children }) {
     return (
@@ -28,6 +29,20 @@ function Layout({ children }) {
                 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:ital@0;1&family=Poppins&display=swap" rel="stylesheet" />
 
             </Head>
+
+            <Script
+                src="https://www.googletagmanager.com/gtag/js?id=G-245F5EGES2"
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+            {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-245F5EGES2');
+            `}
+            </Script>
 
             {children}
         </>
