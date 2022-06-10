@@ -13,6 +13,24 @@ div#__next {
 
 body {
     background-image: url('/background.png'), linear-gradient(#F15177, #E61A4B);
+    background-position: center center;
+    background-size: contain;
+}
+
+body::-webkit-scrollbar-track
+{
+	background-image: linear-gradient(#F15177, #E61A4B);
+}
+
+body::-webkit-scrollbar
+{
+	width: 5px;
+	background: linear-gradient(#F15177, #E61A4B);
+}
+
+body::-webkit-scrollbar-thumb
+{
+	background-color: #fff;
 }
 
 @media screen and (max-width: 768px) {

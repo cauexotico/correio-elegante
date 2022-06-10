@@ -81,15 +81,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             fields: [
                 'to', 'message'
             ],
-            message: 'Campo em branco'
+            message: 'Por favor, preencha todos os campos.'
         })
     }
+
+    req.body.to = req.body.to.replace('_', '');
 
     if (req.body.to.length != 16) {
         return res.status(500).json({
             error: true,
             fields: ['to'],
-            message: 'Formato incorreto'
+            message: 'Número com formato incorreto. O formato correto é (42) 9 9999-9999'
         })
     }
 
@@ -99,7 +101,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         return res.status(500).json({
             error: true,
             field: ['message'],
-            message: 'Limite de caracteres excedido'
+            message: 'Limite de 256 caracteres excedido'
         })
     }
 
