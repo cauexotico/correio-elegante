@@ -92,7 +92,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     req.body.to = req.body.to.replace('_', '');
-    req.body.message = req.body.message.replace(/(\r\n|\n|\r)/gm, " ");
+    // req.body.message = req.body.message.replace(/(\r\n|\n|\r)/gm, " ");
 
     if (req.body.to.length != 16) {
         return res.status(500).json({

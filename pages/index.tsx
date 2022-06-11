@@ -9,6 +9,16 @@ const Home: NextPage = () => {
   const [to, setTo] = useState('');
   const [message, setMessage] = useState('');
 
+  function submitToggles(stage: String = 'inicio') {
+    if (stage == 'inicio') {
+      document.getElementById("submit")!.innerHTML = 'Carregando...';
+      document.getElementById("submit")!.setAttribute('disabled', 'disabled');
+    } else {
+      document.getElementById("submit")!.innerHTML = 'Faça o pagamento e envie sua mensagem';
+      document.getElementById("submit")!.removeAttribute('disabled');
+    }
+  }
+
   return (
     <div className='max-w-screen-xl px-4 m-auto'>
       <header className='py-4 md:py-11 mb-4 md:mb-8 flex'>
@@ -27,6 +37,7 @@ const Home: NextPage = () => {
 
             <form className='flex gap-6 flex-col' onSubmit={(e) => {
               e.preventDefault();
+              submitToggles('inicio');
 
               fetch('/api/message', {
                 method: 'POST',
@@ -37,12 +48,19 @@ const Home: NextPage = () => {
               }).then(response => response.json())
                 .then(json => {
                   if (json.error == false) {
+                    submitToggles();
+                    document.getElementById("mp-link")!.setAttribute('href', json.data.payment_url);
+                    document.getElementById("mp-link")!.classList.remove('hidden');
                     window.open(json.data.payment_url, '_blank')?.focus()
                   } else {
+                    submitToggles();
                     alert(json.message)
                   }
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                  alert('Erro, tente novamente mais tarde.');
+                  console.log(err);
+                })
             }}>
               <InputMask mask="(99) \9 9999-9999" onChange={(e) => setTo(e.target.value)} type="tel" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' autoComplete="off" />
               <div className='form-group'>
@@ -50,6 +68,7 @@ const Home: NextPage = () => {
                 <small>Tá ligado que essa mensagem é anônima, né!?</small>
                 <small className='text-right'>{message.length}/{charsLimit}</small>
               </div>
+              <a id="mp-link" target={'_blank'} className='text-center bg-white hidden rounded-md border-red-500 border-4' href="#">clique aqui caso o pagamento não abrir automaticamente</a>
               <button className='button' id="submit">Faça o pagamento e envie sua mensagem</button>
             </form>
           </section>
