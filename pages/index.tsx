@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                 })
                 .catch(err => console.log(err))
             }}>
-              <InputMask mask="(99) \9 9999-9999" onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' autoComplete="off" />
+              <InputMask mask="(99) \9 9999-9999" onChange={(e) => setTo(e.target.value)} type="tel" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' autoComplete="off" />
               <div className='form-group'>
                 <textarea rows={5} maxLength={charsLimit} onChange={(e) => setMessage(e.target.value)} name="message" placeholder='Escreva aqui sua declaração...'></textarea>
                 <small>Tá ligado que essa mensagem é anônima, né!?</small>

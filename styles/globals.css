@@ -44,13 +44,13 @@ body {
     @apply text-sm font-semibold bg-white px-8 py-4 rounded-full
 }
 
-input[type='text'], textarea {
+input[type='tel'], textarea {
     resize: none;
     
     @apply w-full text-white border-b border-white bg-transparent
 }
 
-input[type='text']::placeholder, textarea::placeholder {
+input[type='tel']::placeholder, textarea::placeholder {
     color: #fff;
 }
 
