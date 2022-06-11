@@ -8,6 +8,11 @@ const Home: NextPage = () => {
   const [to, setTo] = useState('');
   const [message, setMessage] = useState('');
 
+  function toggleText(button_id)  {
+    var text = document.getElementById(button_id).firstChild;
+    text.data = text.data == "Carregando..." ? "Faça o pagamento e envie sua mensagem" : "Carregando...";
+ }
+
   return (
     <div className='max-w-screen-xl px-4 m-auto'>
       <header className='py-4 md:py-11 mb-4 md:mb-8 flex'>
@@ -27,6 +32,8 @@ const Home: NextPage = () => {
             <form className='flex gap-6 flex-col' onSubmit={(e) => {
               e.preventDefault();
 
+              toggleText('submit');
+
               fetch('/api/message', {
                 method: 'POST',
                 headers: {
@@ -36,12 +43,15 @@ const Home: NextPage = () => {
               }).then(response => response.json())
                 .then(json => {
                   if (json.error == false) {
+                    toggleText('submit');
                     window.open(json.data.payment_url, '_blank')?.focus()
                   } else {
+                    toggleText('submit');
                     alert(json.message)
                   }
                 })
                 .catch(err => console.log(err))
+
             }}>
               <InputMask mask="(99) \9 9999-9999" onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' autoComplete="off" />
               <div className='form-group'>
@@ -49,7 +59,7 @@ const Home: NextPage = () => {
                 <small>Tá ligado que essa mensagem é anônima, né!?</small>
                 <small className='text-right'>{message.length}/{charsLimit}</small>
               </div>
-              <button className='button'>Faça o pagamento e envie sua mensagem</button>
+              <button className='button' id="submit">Faça o pagamento e envie sua mensagem</button>
             </form>
           </section>
           <section className='flex gap-4 flex-col'>
