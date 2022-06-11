@@ -39,10 +39,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         },
     });
 
-    messages.forEach(async (message) => {
+    for (const message of messages) {
         await sendMessage(message, res);
 
-        let updateMessage = await prisma.message.updateMany({
+        await prisma.message.update({
             where: {
                 id: message.id,
             },
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 status: 'finalized',
             },
         })
-    })
+    }
 
     return res.status(200).json({
         error: false,
