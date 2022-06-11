@@ -89,5 +89,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     console.log(req.body);
 
-    return updatePaymentStatus(req, res);
+    await updatePaymentStatus(req, res);
+
+    return res.status(200).json({
+        error: false,
+        message: 'success'
+    })
 }
