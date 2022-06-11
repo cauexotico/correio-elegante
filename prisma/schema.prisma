@@ -23,7 +23,8 @@ enum PaymentStatus {
 }
 
 enum Status {
-  sent
+  initiated
+  finalized
   draft
 }
 

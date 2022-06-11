@@ -17,7 +17,13 @@ async function createMessage(req: NextApiRequest, res: NextApiResponse<Object>) 
     });
 
     if (!message.id) {
-        return res.status(500).json({ error: 'something gone wrong while saving in database' })
+        return res.status(500).json({
+            error: true,
+            fields: [
+                'db'
+            ],
+            message: 'something gone wrong while saving in database'
+        })
     }
 
     const payment_url = await createPreference(message.id);
@@ -39,13 +45,13 @@ async function createPreference(idMessage: String) {
             title: 'LOVEBOX - Mensagem',
             description: 'Um agrado eletrônico para o seu amor',
             quantity: 1,
-            unit_price: 2.99,
+            unit_price: 3.49,
             currency_id: 'BRL',
         }],
         payment_methods: {
             excluded_payment_types: [
                 { id: 'debit_card' },
-                { id: 'credit_card' },
+                // { id: 'credit_card' },
                 { id: 'ticket' },
             ],
         },
@@ -96,7 +102,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         })
     }
 
-    req.body.to = req.body.to.replace(' 9 ', '').replace(/\D/g, '');
+    req.body.to = '55' + req.body.to.replace(' 9 ', '').replace(/\D/g, '');
 
     if (req.body.message.length > 256) {
         return res.status(500).json({

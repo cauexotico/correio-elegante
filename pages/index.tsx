@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react'
 import InputMask from 'react-input-mask';
 
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
       <main>
         <article className='grid grid-cols-1 md:grid-cols-2 gap-12'>
           <section className='flex gap-6 flex-col'>
-            <h2 className='text-2xl md:text-4xl text-white font-big'>Por apenas R$2,99 envie uma mensagem anonimamente para o seu amor!</h2>
+            <h2 className='text-2xl md:text-4xl text-white font-big'>Por apenas R$3,49 envie uma mensagem anonimamente para o seu amor!</h2>
             <h3 className='text-sm md:text-base text-white mb-6'>Basta inserir o número do whatsapp dele(a) e escrever a sua própria mensagem.</h3>
 
             <form className='flex gap-6 flex-col' onSubmit={(e) => {
@@ -42,7 +43,6 @@ const Home: NextPage = () => {
                   }
                 })
                 .catch(err => console.log(err))
-
             }}>
               <InputMask mask="(99) \9 9999-9999" onChange={(e) => setTo(e.target.value)} type="text" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' autoComplete="off" />
               <div className='form-group'>
@@ -54,17 +54,14 @@ const Home: NextPage = () => {
             </form>
           </section>
           <section className='flex gap-4 flex-col'>
-            <p className='text-3xl text-white font-big'>Veja como a mensagem ficou:</p>
+            <p className='text-3xl text-white font-big'>Como funciona?</p>
             <div className='bg-white rounded-2xl p-4'>
-              <p className='font-preview'>
-                Como é bom ser lembrado por alguém especial! 😍 <br />
-                Você acabou de receber um Correio Elegante. 💘 <br />
-                Confira sua mensagem 👇 <br />
-                <br />
-                <span className='italic'>{message ? message : 'escreva sua mensagem'}</span><br />
-                <br />
-                Acesse https://lovebox.khaue.com.br e envie também para alguém que você goste!
-              </p>
+              <ol className='flex gap-4 flex-col'>
+                <li>1. Você insere o número do destinatário, a sua mensagem e realiza o pagamento.</li>
+                <li>2. O seu amado irá receber uma mensagem no whatsapp notificando que recebeu um correio eletrônico.</li>
+                <li>3. Basta ele(a) responder com <strong>SIM</strong></li>
+                <li>4. Em seguida irá receber a sua mensagem super especial!</li>
+              </ol>
             </div>
             <div className='text-center'>
               <Image src='/lovebox-envelope.png' alt='Lovebox' width={282} height={304} />
@@ -72,7 +69,10 @@ const Home: NextPage = () => {
           </section>
         </article>
       </main>
-      <footer className='w-full text-center p-4'>
+      <footer className='w-full text-center p-4 flex gap-2 flex-col'>
+        <Link href={'/termos'}>
+          <a className='text-white bold underline'>termos de uso</a>
+        </Link>
         <span className='text-white bold'>Copyright © LoveBox 2022.</span>
       </footer>
     </div>

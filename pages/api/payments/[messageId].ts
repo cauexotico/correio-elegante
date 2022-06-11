@@ -23,18 +23,26 @@ async function updatePaymentStatus(req: NextApiRequest, res: NextApiResponse<Obj
             where: { id: messageId },
         });
 
-        if (message?.status != 'sent') { 
-            const updateMessage = await prisma.message.update({
+        if (message?.status == 'draft') { 
+            const updatePayment = await prisma.message.update({
                 where: {
                     id: messageId,
                 },
                 data: {
-                    status: 'sent',
                     payment_status: 'approved',
                 },
             })
 
-            sendMessage(req, res);
+            if (await sendMessage(req, res)) {
+                const updateMessage = await prisma.message.update({
+                    where: {
+                        id: messageId,
+                    },
+                    data: {
+                        status: 'initiated',
+                    },
+                })
+            }
         }
     }
 
@@ -55,16 +63,19 @@ async function sendMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
         where: { id: messageId },
     });
 
+    let response;
+
     await client.messages
         .create({
             from: `whatsapp:${myNumber}`,
             // body: `Você é uma pessoa muito especial! 💕💕 \nAlguém enviou um *correio elegante* para você 😍😍 com a seguinte mensagem:\n\n _${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
-            body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nConfira sua mensagem 👇 \n\n_${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
-            to: `whatsapp:+55${message?.to}`
+            // body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nConfira sua mensagem 👇 \n\n_${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
+            body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nPara conferir a mensagem recebida envie SIM 👇 \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
+            to: `whatsapp:+${message?.to}`
         })
-        .then((message: String) => res.json(message), (err: Error) => res.json(err));
+        .then((message: String) => response = true, (err: Error) => response = true);
 
-    return
+    return response;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Object>) {
