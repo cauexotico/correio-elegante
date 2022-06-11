@@ -17,18 +17,18 @@ body {
     background-size: contain;
 }
 
-body::-webkit-scrollbar-track
+*::-webkit-scrollbar-track
 {
 	background-image: linear-gradient(#F15177, #E61A4B);
 }
 
-body::-webkit-scrollbar
+*::-webkit-scrollbar
 {
 	width: 5px;
 	background: linear-gradient(#F15177, #E61A4B);
 }
 
-body::-webkit-scrollbar-thumb
+*::-webkit-scrollbar-thumb
 {
 	background-color: #fff;
 }

@@ -8,11 +8,6 @@ const Home: NextPage = () => {
   const [to, setTo] = useState('');
   const [message, setMessage] = useState('');
 
-  function toggleText(button_id)  {
-    var text = document.getElementById(button_id).firstChild;
-    text.data = text.data == "Carregando..." ? "Faça o pagamento e envie sua mensagem" : "Carregando...";
- }
-
   return (
     <div className='max-w-screen-xl px-4 m-auto'>
       <header className='py-4 md:py-11 mb-4 md:mb-8 flex'>
@@ -32,8 +27,6 @@ const Home: NextPage = () => {
             <form className='flex gap-6 flex-col' onSubmit={(e) => {
               e.preventDefault();
 
-              toggleText('submit');
-
               fetch('/api/message', {
                 method: 'POST',
                 headers: {
@@ -43,10 +36,8 @@ const Home: NextPage = () => {
               }).then(response => response.json())
                 .then(json => {
                   if (json.error == false) {
-                    toggleText('submit');
                     window.open(json.data.payment_url, '_blank')?.focus()
                   } else {
-                    toggleText('submit');
                     alert(json.message)
                   }
                 })

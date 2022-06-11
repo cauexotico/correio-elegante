@@ -19,20 +19,26 @@ async function updatePaymentStatus(req: NextApiRequest, res: NextApiResponse<Obj
     const payment = await getPayment(req.body.data.id);
 
     if (payment.status == 'approved') {
-        const updateMessage = await prisma.message.update({
-            where: {
-                id: messageId,
-            },
-            data: {
-                status: 'sent',
-                payment_status: 'approved',
-            },
-        })
+        const message = await prisma.message.findUnique({
+            where: { id: messageId },
+        });
 
-        return sendMessage(req, res);
+        if (message?.status != 'sent') { 
+            const updateMessage = await prisma.message.update({
+                where: {
+                    id: messageId,
+                },
+                data: {
+                    status: 'sent',
+                    payment_status: 'approved',
+                },
+            })
+
+            sendMessage(req, res);
+        }
     }
 
-    return
+    return true
 }
 
 async function getPayment(paymentId: string) {
