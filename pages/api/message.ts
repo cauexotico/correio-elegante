@@ -78,11 +78,11 @@ async function createPreference(idMessage: String) {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Object>) {
     if (req.method !== 'POST') {
-        return res.status(500).json({ error: 'only accepts POST method' })
+        return res.status(400).json({ error: 'only accepts POST method' })
     }
 
     if (!req.body.to || !req.body.message) {
-        return res.status(500).json({
+        return res.status(400).json({
             error: true,
             fields: [
                 'to', 'message'
@@ -95,7 +95,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // req.body.message = req.body.message.replace(/(\r\n|\n|\r)/gm, " ");
 
     if (req.body.to.length != 16) {
-        return res.status(500).json({
+        return res.status(400).json({
             error: true,
             fields: ['to'],
             message: 'Número com formato incorreto. O formato correto é (42) 9 9999-9999'
@@ -105,7 +105,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     req.body.to = '55' + req.body.to.replace(' 9 ', '').replace(/\D/g, '');
 
     if (req.body.message.length > 256) {
-        return res.status(500).json({
+        return res.status(400).json({
             error: true,
             field: ['message'],
             message: 'Limite de 256 caracteres excedido'

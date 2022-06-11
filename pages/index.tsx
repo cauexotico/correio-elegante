@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   const [to, setTo] = useState('');
   const [message, setMessage] = useState('');
 
-  function submitToggles(stage: String = 'inicio') {
+  function submitToggles(stage: String = 'final') {
     if (stage == 'inicio') {
       document.getElementById("submit")!.innerHTML = 'Carregando...';
       document.getElementById("submit")!.setAttribute('disabled', 'disabled');

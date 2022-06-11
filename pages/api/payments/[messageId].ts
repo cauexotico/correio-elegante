@@ -84,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }
 
     if (!req.body.type || req.body.type !== 'payment' || req.query.messageId == undefined) {
-        return res.status(500).json({ error: 'missing type, messageId or isnt payment' })
+        return res.status(400).json({ error: 'missing type, messageId or isnt payment' })
     }
 
     console.log(req.body);

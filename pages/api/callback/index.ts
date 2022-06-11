@@ -24,7 +24,7 @@ async function sendMessage(message: any, res: NextApiResponse<Object>) {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Object>) {
     if (req.method !== 'POST') {
-        return res.status(500).json({ error: 'only accepts POST method' })
+        return res.status(400).json({ error: 'only accepts POST method' })
     }
 
     if (!req.body.Body.toUpperCase().includes('SIM')) {
