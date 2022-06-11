@@ -51,7 +51,7 @@ async function createPreference(idMessage: String) {
         payment_methods: {
             excluded_payment_types: [
                 { id: 'debit_card' },
-                // { id: 'credit_card' },
+                { id: 'credit_card' },
                 { id: 'ticket' },
             ],
         },
