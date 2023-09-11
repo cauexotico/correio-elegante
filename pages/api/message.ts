@@ -45,7 +45,7 @@ async function createPreference(idMessage: String) {
             title: 'LOVEBOX - Mensagem',
             description: 'Um agrado eletrônico para o seu amor',
             quantity: 1,
-            unit_price: 3.49,
+            unit_price: 2.49,
             currency_id: 'BRL',
         }],
         payment_methods: {

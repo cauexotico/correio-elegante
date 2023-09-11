@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 
   return (
     <div className='max-w-screen-xl px-4 m-auto'>
-      <header className='py-4 md:py-11 mb-4 md:mb-8 flex'>
+      <header className='flex py-4 mb-4 md:py-11 md:mb-8'>
         <svg xmlns="http://www.w3.org/2000/svg" width="210.2" height="47.458" viewBox="0 0 210.2 47.458">
           <g id="Lovebox" transform="translate(-4404.53 -460.667)">
             <path id="Caminho_1" data-name="Caminho 1" d="M4838.409,426.215V416.49l-15.061-8.772v9.725Zm3.347-9.725v9.725l15.06-8.772v-9.725Zm-8.325-29.551a4.786,4.786,0,0,0-3.262,1.24c-2.308,2.142-.67,5.084,1.941,7.894a66.134,66.134,0,0,0,6.184,5.574c.636.526,1.238,1.024,1.79,1.5.551-.472,1.153-.969,1.79-1.5a66.191,66.191,0,0,0,6.183-5.574c2.611-2.81,4.25-5.752,1.94-7.894a4.909,4.909,0,0,0-6.523,0l-3.39,3.144-3.39-3.144A4.783,4.783,0,0,0,4833.431,386.938Zm-1.379,13.76-7.062,4.113,15.092,8.791,15.091-8.791-4.794-2.793c.674-.635,1.33-1.289,1.96-1.966q.224-.242.448-.493l7.375,4.3v15.5l-20.081,11.7L4820,419.355v-15.5l9.591-5.587c-3.794-4.111-5.93-8.609-1.7-12.534a8.23,8.23,0,0,1,11.074,0l1.115,1.034,1.115-1.034a8.228,8.228,0,0,1,11.073,0c4.258,3.949,2.068,8.479-1.771,12.611a68.44,68.44,0,0,1-6.5,5.875c-1.092.9-2.081,1.721-2.784,2.373l-1.137,1.056-1.138-1.056c-.7-.652-1.691-1.47-2.783-2.373C4834.87,403.152,4833.436,401.965,4832.052,400.7Z" transform="translate(-415.472 77.073)" fill="#fff" />
@@ -30,12 +30,12 @@ const Home: NextPage = () => {
         </svg>
       </header>
       <main>
-        <article className='grid grid-cols-1 md:grid-cols-2 gap-12'>
-          <section className='flex gap-6 flex-col'>
-            <h2 className='text-2xl md:text-4xl text-white font-big'>Por apenas R$3,49 envie uma mensagem anonimamente para o seu amor!</h2>
-            <h3 className='text-sm md:text-base text-white mb-6'>Basta inserir o número do whatsapp dele(a) e escrever a sua própria mensagem.</h3>
+        <article className='grid grid-cols-1 gap-12 md:grid-cols-2'>
+          <section className='flex flex-col gap-6'>
+            <h2 className='text-2xl text-white md:text-4xl font-big'>Por apenas R$2,49 envie uma mensagem anonimamente para o seu amor!</h2>
+            <h3 className='mb-6 text-sm text-white md:text-base'>Basta inserir o número do whatsapp dele(a) e escrever a sua própria mensagem.</h3>
 
-            <form className='flex gap-6 flex-col' onSubmit={(e) => {
+            <form className='flex flex-col gap-6' onSubmit={(e) => {
               e.preventDefault();
               submitToggles('inicio');
 
@@ -68,18 +68,17 @@ const Home: NextPage = () => {
                 <small>Tá ligado que essa mensagem é anônima, né!?</small>
                 <small className='text-right'>{message.length}/{charsLimit}</small>
               </div>
-              <a id="mp-link" target={'_blank'} className='text-center bg-white hidden rounded-md border-red-500 border-4' href="#">clique aqui caso o pagamento não abrir automaticamente</a>
+              <a id="mp-link" target={'_blank'} className='hidden text-center bg-white border-4 border-red-500 rounded-md' href="#">clique aqui caso o pagamento não abrir automaticamente</a>
               <button className='button' id="submit">Faça o pagamento e envie sua mensagem</button>
             </form>
           </section>
-          <section className='flex gap-4 flex-col'>
+          <section className='flex flex-col gap-4'>
             <p className='text-3xl text-white font-big'>Como funciona?</p>
-            <div className='bg-white rounded-2xl p-4'>
-              <ol className='flex gap-4 flex-col'>
-                <li>1. Você insere o número do destinatário, a sua mensagem e realiza o pagamento.</li>
-                <li>2. O seu amado irá receber uma mensagem no whatsapp notificando que recebeu um correio eletrônico.</li>
-                <li>3. Basta ele(a) responder com <strong>SIM</strong></li>
-                <li>4. Em seguida irá receber a sua mensagem super especial!</li>
+            <div className='p-4 bg-white rounded-2xl'>
+              <ol className='flex flex-col gap-4'>
+                <li>1. Preencha o número do destinatário</li>
+                <li>2. Escreva a sua mensagem e realize o pagamento.</li>
+                <li>3. Após a aprovação do pagamento, o seu amado irá receber uma mensagem no whatsapp contendo a sua mensagem de amor.</li>
               </ol>
             </div>
             <div className='text-center'>
@@ -88,11 +87,11 @@ const Home: NextPage = () => {
           </section>
         </article>
       </main>
-      <footer className='w-full text-center p-4 flex gap-2 flex-col'>
+      <footer className='flex flex-col w-full gap-2 p-4 text-center'>
         <Link href={'/termos'}>
-          <a className='text-white bold underline'>termos de uso</a>
+          <a className='text-white underline bold'>termos de uso</a>
         </Link>
-        <span className='text-white bold'>Copyright © LoveBox 2022.</span>
+        <span className='text-white bold'>Copyright © LoveBox 2023.</span>
       </footer>
     </div>
   )

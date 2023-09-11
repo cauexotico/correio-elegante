@@ -1,11 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
 
-const twillio = require('twilio');
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const myNumber = process.env.TWILIO_SENDER_NUMBER;
-
 const mercadopago = require('mercadopago');
 const prisma = new PrismaClient();
 
@@ -23,7 +18,7 @@ async function updatePaymentStatus(req: NextApiRequest, res: NextApiResponse<Obj
             where: { id: messageId },
         });
 
-        if (message?.status == 'draft') { 
+        if (message?.status == 'draft') {
             const updatePayment = await prisma.message.update({
                 where: {
                     id: messageId,
@@ -39,7 +34,7 @@ async function updatePaymentStatus(req: NextApiRequest, res: NextApiResponse<Obj
                         id: messageId,
                     },
                     data: {
-                        status: 'initiated',
+                        status: 'sent',
                     },
                 })
             }
@@ -56,7 +51,6 @@ async function getPayment(paymentId: string) {
 }
 
 async function sendMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
-    const client = twillio(accountSid, authToken);
     const messageId = req.query.messageId as string | undefined;
 
     const message = await prisma.message.findUnique({
@@ -65,15 +59,24 @@ async function sendMessage(req: NextApiRequest, res: NextApiResponse<Object>) {
 
     let response;
 
-    await client.messages
-        .create({
-            from: `whatsapp:${myNumber}`,
-            // body: `Você é uma pessoa muito especial! 💕💕 \nAlguém enviou um *correio elegante* para você 😍😍 com a seguinte mensagem:\n\n _${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
-            // body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nConfira sua mensagem 👇 \n\n_${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
-            body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \n Para conferir a mensagem recebida envie SIM 👇 \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
-            to: `whatsapp:+${message?.to}`
+    await fetch(`${process.env.WPPCONNECT_URL}/send-message`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.WPPCONNECT_TOKEN}`
+        },
+        body: JSON.stringify({
+            'phone': message?.to,
+            'message': `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nConfira sua mensagem 👇 \n\n_${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`
         })
-        .then((message: String) => response = true, (err: Error) => response = true);
+    }).then(response => response.json())
+        .then(json => {
+            response = json.status == 'success'
+        })
+
+    // body: `Você é uma pessoa muito especial! 💕💕 \nAlguém enviou um *correio elegante* para você 😍😍 com a seguinte mensagem:\n\n _${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
+    // body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \nConfira sua mensagem 👇 \n\n_${message?.message}_ \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
+    // body: `Como é bom ser lembrado por alguém especial! 😍 \nVocê acabou de receber um Correio Elegante. 💘 \n Para conferir a mensagem recebida envie SIM 👇 \n\nAcesse https://lovebox.khaue.com.br e envie também para alguém que você goste!`,
 
     return response;
 }
