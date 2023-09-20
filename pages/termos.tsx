@@ -5,7 +5,7 @@ const Termos: NextPage = () => {
 
   return (
     <div className='max-w-screen-xl px-4 m-auto'>
-      <header className='py-4 md:py-11 mb-4 md:mb-8 flex'>
+      <header className='flex py-4 mb-4 md:py-11 md:mb-8'>
         <Link href='/'>
           <a>
             <svg xmlns="http://www.w3.org/2000/svg" width="210.2" height="47.458" viewBox="0 0 210.2 47.458">
@@ -19,9 +19,9 @@ const Termos: NextPage = () => {
       </header>
       <main>
         <article className='grid grid-cols-1 gap-12'>
-          <section className='flex gap-4 flex-col'>
+          <section className='flex flex-col gap-4'>
             <p className='text-3xl text-white font-big'>Termos de Uso</p>
-            <div className='bg-white rounded-2xl p-4 flex flex-col gap-6'>
+            <div className='flex flex-col gap-6 p-4 bg-white rounded-2xl'>
               <p>Prezada (o) usuário,</p>
               <p>Nós prezamos pelo respeito à informação e privacidade de nossos clientes. Sendo assim, assumimos o compromisso com você, que já é cliente/consumidor dos nossos produtos e/ou serviços ou está interessado em conhecer ou adquiri-los, em não divulgar nenhuma informação que nos foi conferida e confiada a quaisquer terceiros.</p>
               <p>Ao acessar nosso site, você receberá um cookie, pequeno arquivo que tem como finalidade identificar seu perfil e hábitos de navegação na internet e poder direcioná-lo aos produtos que mais lhe interessam. Ao mesmo tempo, nos permite conhecer nossos usuários. Estes dados e informações poderão ser fornecidos a terceiros, sem que, entretanto, haja identificação das pessoas que a compõem.</p>
@@ -31,11 +31,11 @@ const Termos: NextPage = () => {
           </section>
         </article>
       </main>
-      <footer className='w-full text-center p-4 flex gap-2 flex-col'>
+      <footer className='flex flex-col w-full gap-2 p-4 text-center'>
         <Link href={'/termos'}>
-          <a className='text-white bold underline'>termos de uso</a>
+          <a className='text-white underline bold'>termos de uso</a>
         </Link>
-        <span className='text-white bold'>Copyright © LoveBox 2022.</span>
+        <span className='text-white bold'>Copyright © LoveBox 2023.</span>
       </footer>
     </div >
   )

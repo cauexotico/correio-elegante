@@ -56,7 +56,7 @@ async function createPreference(idMessage: String) {
             ],
         },
         external_reference: idMessage,
-        // auto_return: 'approved',
+        auto_return: 'approved',
         back_urls: {
             success: `https://${process.env.APP_URL}/success/${idMessage}`,
         },

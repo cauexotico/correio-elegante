@@ -39,6 +39,9 @@ const Home: NextPage = () => {
               e.preventDefault();
               submitToggles('inicio');
 
+              var mpTab = window.open('', '_blank');
+              mpTab?.document.write('Carregando pagamento...');
+
               fetch('/api/message', {
                 method: 'POST',
                 headers: {
@@ -51,7 +54,11 @@ const Home: NextPage = () => {
                     submitToggles();
                     document.getElementById("mp-link")!.setAttribute('href', json.data.payment_url);
                     document.getElementById("mp-link")!.classList.remove('hidden');
-                    window.open(json.data.payment_url, '_blank')?.focus()
+
+                    if (mpTab) {
+                      mpTab.location.href = json.data.payment_url;
+                      mpTab.focus();
+                    }
                   } else {
                     submitToggles();
                     alert(json.message)
