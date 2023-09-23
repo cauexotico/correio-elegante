@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react'
 import InputMask from 'react-input-mask';
+import { cantadas } from '../cantadas';
 
 const Home: NextPage = () => {
   const charsLimit = 256;
@@ -17,6 +18,10 @@ const Home: NextPage = () => {
       document.getElementById("submit")!.innerHTML = 'Faça o pagamento e envie sua mensagem';
       document.getElementById("submit")!.removeAttribute('disabled');
     }
+  }
+
+  const gerarCantada = () => {
+    setMessage(cantadas[Math.floor(Math.random() * cantadas.length)])
   }
 
   return (
@@ -71,9 +76,22 @@ const Home: NextPage = () => {
             }}>
               <InputMask mask="(99) \9 9999-9999" onChange={(e) => setTo(e.target.value)} type="tel" name="to" placeholder='Whatsapp do seu (ou da sua) amado(a) <3' autoComplete="off" />
               <div className='form-group'>
-                <textarea rows={5} maxLength={charsLimit} onChange={(e) => setMessage(e.target.value)} name="message" placeholder='Escreva aqui sua declaração...'></textarea>
+                <textarea rows={5} maxLength={charsLimit} onChange={(e) => setMessage(e.target.value)} name="message" placeholder='Escreva aqui sua declaração...' value={message}></textarea>
                 <small>Tá ligado que essa mensagem é anônima, né!?</small>
-                <small className='text-right'>{message.length}/{charsLimit}</small>
+                <div className='flex items-center gap-2'>
+                  <small className='text-right'>{message.length}/{charsLimit}</small>
+                  <button type="button" className='text-right' onClick={() => gerarCantada()} title='Gerar Cantada'>
+                    <svg className='w-5 h-auto fill-white' width="56" height="62" viewBox="0 0 56 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5.1 10.2C4.76837e-07 12.7 0 12.7 0 18V44C0 46.2 4.76837e-07 49.2 5.1 51.8L23.1 60.8C23.3 60.9 25.6 62 28 62C30.4 62 32.6 60.9 32.9 60.8L50.9 51.8C56 49.2 56 46.2 56 44V18C56 12.7 56 12.7 50.9 10.2L32.9 1.2C32.6 1.1 30.4 0 28 0C25.6 0 23.4 1.1 23.1 1.2L5.1 10.2ZM26 57.6C25.5 57.4 24.9 57.2 24.9 57.2L6.9 48.2C4 46.9 4 46 4 44V18C4 17.6 4 17.2 4.1 16.8L23.1 26.8C24.2 27.4 25.5 28.1 26 28.6V57.6ZM24.9 23.2L6.9 13.8L24.9 4.8C25.3 4.6 26.8 4 28 4C29.2 4 30.7 4.6 31.1 4.8L49.1 13.8L31.1 23.2C29.7 23.9 28.7 24.5 28 25C27.3 24.5 26.3 23.9 24.9 23.2ZM52 44C52 46 52 46.9 49.1 48.2L31.1 57.2C30.9 57.3 30.5 57.5 30 57.6V28.6C30.5 28.2 31.7 27.4 32.9 26.8L51.9 16.9C51.9 17.3 52 17.7 52 18.1V44Z" />
+                      <path d="M15.7 33.4C17.3 34.3 18.2 36.6 17.8 38.6C17.4 40.6 15.8 41.4 14.2 40.5C12.6 39.6 11.7 37.3 12.1 35.3C12.5 33.3 14.2 32.5 15.7 33.4Z" />
+                      <path d="M41.5 34.2C42.9 33.4 44 34 44 35.6C44 37.2 42.9 39.1 41.5 39.9C40.1 40.7 39 40 39 38.4C39 36.8 40.1 34.9 41.5 34.2Z" />
+                      <path d="M36.5 44.2C37.9 43.4 39 44 39 45.6C39 47.2 37.9 49.1 36.5 49.9C35.1 50.7 34 50 34 48.4C34 46.9 35.1 44.9 36.5 44.2Z" />
+                      <path d="M46.5 24.2C47.9 23.4 49 24 49 25.6C49 27.2 47.9 29.1 46.5 29.9C45.1 30.6 44 30 44 28.4C44 26.9 45.1 24.9 46.5 24.2Z" />
+                      <path d="M35 16C37.2091 16 39 14.8807 39 13.5C39 12.1193 37.2091 11 35 11C32.7909 11 31 12.1193 31 13.5C31 14.8807 32.7909 16 35 16Z" />
+                      <path d="M21 16C23.2091 16 25 14.8807 25 13.5C25 12.1193 23.2091 11 21 11C18.7909 11 17 12.1193 17 13.5C17 14.8807 18.7909 16 21 16Z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
               <a id="mp-link" target={'_blank'} className='hidden text-center bg-white border-4 border-red-500 rounded-md' href="#">clique aqui caso o pagamento não abrir automaticamente</a>
               <button className='button' id="submit">Faça o pagamento e envie sua mensagem</button>
